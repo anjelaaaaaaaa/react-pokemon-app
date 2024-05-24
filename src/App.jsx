@@ -7,7 +7,7 @@ function App() {
 
   const [pokemons, setPokemons] = useState([]);
 
-  const url = 'https://pokeapi.co/api/v2/pokemon/?limit=1008&offset=0';
+  const url = 'https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0';
 
   // api요청 -> response옴 -> state 업뎃 -> component 재랜더링 -> state 
   useEffect(()=> {
