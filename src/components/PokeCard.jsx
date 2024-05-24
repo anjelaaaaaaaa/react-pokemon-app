@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import LazyImage from './LazyImage';
 
 const PokeCard = ({url, name}) => {
-
     const [pokemon, setPokemon] = useState();
 
     useEffect(()=> {
@@ -12,7 +12,6 @@ const PokeCard = ({url, name}) => {
     async function fetchPokeDetailData() {
         try{
             const response = await axios.get(url);
-            console.log(url);
             console.log(response.data)
             const pokemonData = formatPokemonData(response.data);
             setPokemon(pokemonData);
@@ -42,27 +41,25 @@ const PokeCard = ({url, name}) => {
         <>
             {pokemon &&
                 <a
-                    href={`/pokemon/${name}`}
-                    className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-between items-center`}
-                >
+                href={`/pokemon/${name}`}
+                className={`box-border rounded-lg ${border} w-[8.5rem] h-[8.5rem] z-0 bg-slate-800 justify-content`}
+              >
                     <div 
                         className={`${text} h-[1.5rem] text-xs w-full pt-1 px-2 text-right rounded-t-lg`}>
                         #{pokemon.id.toString().padStart(3, '00')}
                     </div>
                     <div className={`w-full f-6 flex items-center justify-center`}>
                         <div className={`box-border relative flex w-full h-[5.5rem] basis justify-center items-center`}>
-                            <img
-                                src={img}
-                                alt={name}
-                                width="100%"
-                                className={`object-contain h-full`}
-                            />
+                          {/* 이 부분에 img태그 넣던걸 레이지 로딩으로 바꿔준다 */}
+                          <LazyImage 
+                            url={img}
+                            alt={name}
+                          />
                         </div>
                     </div>
                     <div 
                         className={`${bg} text-xs text-zinc-100 h-[1.5rem] rounded-b-lg uppercase font-medium pt-1`}>
                         {pokemon.name}
-
                     </div>
                 </a>
             }
